@@ -6,8 +6,8 @@ FROM
 WHERE
 	ST_Intersects(
 		coords,
-    	ST_GeomFromText('POLYGON((-110 35, -110 36, -109 36, -109 35, -110 35))', 4326)
-    )
+		ST_GeomFromText('POLYGON((-110 35, -110 36, -109 36, -109 35, -110 35))', 4326)
+	)
 ORDER BY
 	name10 DESC;
 
@@ -54,20 +54,20 @@ FROM
 	tl_2010_us_state10 AS state
 WHERE
 	state.name10 = 'Pennsylvania' 
-    AND
-    	ST_Overlaps(state.coords, uac.coords);
+	AND
+		ST_Overlaps(state.coords, uac.coords);
 
 -- ### QUERY 5 ### --
 SELECT
-    uac1.name10,
-    uac2.name10
+	uac1.name10,
+	uac2.name10
 FROM
-    tl_2010_us_uac10 AS uac1,
-    tl_2010_us_uac10 AS uac2
+	tl_2010_us_uac10 AS uac1,
+	tl_2010_us_uac10 AS uac2
 WHERE
 	ST_Intersects(uac1.coords, uac2.coords)
-    AND uac1.gid != uac2.gid
-    AND uac1.gid < uac2.gid;
+	AND uac1.gid != uac2.gid
+	AND uac1.gid < uac2.gid;
 
 -- ### QUERY 6 ### --
 SELECT
@@ -78,8 +78,8 @@ FROM
 	tl_2010_us_state10 AS state
 WHERE
 	((uac.aland10 + uac.awater10) > 1500000000)
-    AND
-    	ST_Intersects(state.coords, uac.coords)
+	AND
+    		ST_Intersects(state.coords, uac.coords)
 GROUP BY
 	uac.name10 HAVING COUNT(state.name10) > 1
 ORDER BY
